@@ -46,6 +46,7 @@ Details:
    -f    Print number of fields per line
    -m    Print maximum width of each field for print out.
          This includes the header row so it may be slightly skewed.
+   -all  Combined (-n -f -m)
 
 Addtional Options:
    -h [?] Print a row as header (instead of field number) (no space)
@@ -69,7 +70,7 @@ Addtional Options:
            -s1     Skips the first row (good for headers)
            -s5000  Skips 5000 lines
 
-   -2     Make 2-passes through file
+   -2     Make 2-passes through file (TODO)
           By default it loads everything into memory during the first pass.
           (This is useful for reading LOTS of lines.)
 
@@ -90,11 +91,11 @@ Addtional Options:
            -o0     Starts field count zero-based (default)
            -o1     Starts field count 1-based
 
-   -Q     Flag preserves quotes while parsing (using BuildArgVB()) (Added 2005-02-03)
+   -Q     Preserves quotes while splitting lines
 
-   -w [?] Show the added whitespace. By default shows using * but optional char.
+   -w ?   Show the added whitespace within the line. (Recommend using ""*"")
 
-   -y     Dynamically grow the size of the fields, but do not shrink them.
+   -y     Dynamically grow the size of the fields, but do not shrink them. (TODO)
 
 I\O:
    -F [?] Will write the output to ""input.frame"" if no filename is given.

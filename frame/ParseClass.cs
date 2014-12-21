@@ -84,7 +84,7 @@ namespace framespace
             {
                 try
                 {
-                    parsed = System.Convert.ToChar(System.Convert.ToUInt32(s));
+                    parsed = System.Convert.ToChar(System.Convert.ToUInt32(s, 16));
                     return 0;
                 }
                 catch

@@ -31,6 +31,7 @@ namespace framespace
                     case "-n": PrintLineNumber = true; i++; break;
                     case "-f": PrintFieldCount = true; i++; break;
                     case "-m": PrintFieldMaxWidth = true; i++; break;
+                    case "-all": PrintLineNumber = true; PrintFieldCount = true; PrintFieldMaxWidth = true; i++; break;
                     case "-h":
                         {
                             i++;

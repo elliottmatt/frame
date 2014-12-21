@@ -166,7 +166,12 @@ namespace framespace
             }
         }
 
-        private void PrintField(string s, int max, bool isHeader, char padding=' ', char extrachar=' ')
+        private void PrintField(string s, int max, bool isHeader)
+        {
+            PrintField(s, max, isHeader, WhitespaceLetter, WhitespaceLetter);
+        }
+
+        private void PrintField(string s, int max, bool isHeader, char padding, char extrachar)
         {
             int leftlen;
             int rightlen;
@@ -237,10 +242,11 @@ namespace framespace
             // (4) print headers (if we need them)
             if (Header == PrintHeaderType.PrintRow1 || Header == PrintHeaderType.PrintExternFile)
             {
+                string[] fields = ParseClass.ParseLine(HeaderLine, TrimFields, Delimiter, PreserveQuotes); 
+                
                 PrintLineNumberField("");
-                PrintFieldCountField("");
-
-                string[] fields = ParseClass.ParseLine(HeaderLine, TrimFields, Delimiter, PreserveQuotes);
+                PrintFieldCountField(fields.Length.ToString());
+                                
                 for (int i = 0; i < MaxFieldCount; ++i)
                 {
                     OutStream.Write("|");
@@ -300,7 +306,7 @@ namespace framespace
 
         private void PrintHyphenLine(bool includePlus)
         {
-            char openingchar = '|';
+            char openingchar = '-';
             char fielddivider = (includePlus ? '+' : '-');
             if (PrintLineNumber)
             {
@@ -320,7 +326,7 @@ namespace framespace
                 if (i > 0) { OutStream.Write(fielddivider); }
                 PrintField("", MaxFieldLengths[i], true, '-', '-');
             }
-            OutStream.Write("|");
+            OutStream.Write("-");
             OutStream.Write(System.Environment.NewLine);
         }
 
