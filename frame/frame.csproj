@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Frame_constructor.cs" />
     <Compile Include="Frame_parseargs.cs" />
     <Compile Include="Frame_variables.cs" />
     <Compile Include="ParseClass.cs" />

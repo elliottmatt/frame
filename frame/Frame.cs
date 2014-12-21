@@ -1,15 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace framespace
 {
-	public enum PrintAlignmentType
-	{ 
-		Left, 
-		Right, 
-		Center 
-	};
+    public enum PrintAlignmentType
+    {
+        Left,
+        Right,
+        Center
+    };
 
     public enum PrintHeaderType
     {
@@ -19,38 +18,7 @@ namespace framespace
     };
 
     public partial class Frame
-    {
-        public Frame()
-        {
-            ReadStdin = true;
-            WriteStdout = true;
-            OutStream = null;
-
-            PrintLineNumber = false;
-            PrintFieldCount = false;
-            PrintFieldMaxWidth = false;
-
-            Header = PrintHeaderType.PrintFieldNum;
-            TrimFields = false;
-            PrintFieldGutters = true;
-            LineCountToPrint = 10;
-
-            SkipRows = 0;
-            StartSkipRows = 0;
-            UseTwoPassMethod = false;
-            Delimiter = '|';
-            EmptyFieldDelimiter = '#';
-
-            FieldOffset = 1;
-            PreserveQuotes = false;
-
-            MaxFieldCount = -1;
-            MaxReadLine = 0;
-            WhitespaceLetter = ' ';
-
-            Verbose = false;
-        }
-        
+    {        
         private int SaveFieldCount(string line)
         {
             string[] fields = ParseClass.ParseLine(line, TrimFields, Delimiter, PreserveQuotes);
@@ -83,14 +51,7 @@ namespace framespace
             TextReader instream = null;
             try
             {
-                if (ReadStdin)
-                {
-                    instream = Console.In;
-                }
-                else
-                {
-                    instream = new StreamReader(FilenameIn);
-                }
+                instream = (ReadStdin ? Console.In : new StreamReader(FilenameIn));
 
                 bool firstZero = true;
                 for (int row = 0; ; row++)
@@ -205,12 +166,7 @@ namespace framespace
             }
         }
 
-        private void PrintField(string s, int max, bool isHeader)
-        {
-            PrintField(s, max, isHeader, WhitespaceLetter, WhitespaceLetter);
-        }
-
-        private void PrintField(string s, int max, bool isHeader, char padding, char extrachar)
+        private void PrintField(string s, int max, bool isHeader, char padding=' ', char extrachar=' ')
         {
             int leftlen;
             int rightlen;
@@ -381,24 +337,19 @@ namespace framespace
 
 		public int Run()
 		{
-            // read through and get the stats
-            int n = GetFileStats();
-            if (n > 0) return n;
+            if (!DynamicFields)
+            {
+                // read through and get the stats
+                int n = GetFileStats();
+                if (n > 0) return n;
+            }
 
             try
             {
-                if (WriteStdout)
-                {
-                    OutStream = Console.Out;
-                }
-                else
-                {
-                    OutStream = new StreamWriter(FilenameOut);
-                }
+                OutStream = (WriteStdout ? Console.Out : new StreamWriter(FilenameOut));
 
-                if (UseTwoPassMethod)
+                if (UseTwoPassMethod || DynamicFields)
                 {
-                    // TODO
                     throw new Exception("TODO 2 pass");
                 }
                 else
@@ -415,7 +366,5 @@ namespace framespace
                 }
             }
 		}
-
-
     }
 }

@@ -4,7 +4,6 @@ namespace framespace
 {
     partial class Frame
     {
-
         public int ParseArgs(string[] args)
         {
             for (int i = 0; i < args.Length; )
@@ -13,7 +12,6 @@ namespace framespace
                 {
                     if (ReadStdin)
                     {
-                        ReadStdin = false;
                         FilenameIn = args[i];
                         i++;
                         continue;
