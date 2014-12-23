@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Frame_constructor.cs" />
     <Compile Include="Frame_parseargs.cs" />
+    <Compile Include="Frame_print.cs" />
+    <Compile Include="Frame_read.cs" />
     <Compile Include="Frame_variables.cs" />
     <Compile Include="ParseClass.cs" />
     <Compile Include="Program.cs" />
